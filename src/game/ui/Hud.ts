@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import { COLORS, PLAYER } from '../config';
 
+const CONTROL_HINT = 'MOVE  A/D or arrows    JUMP  W/Space/↑    STRIKE  J/X    RESTART  R';
+
 export class Hud {
   private readonly hearts: Phaser.GameObjects.Text;
   private readonly objective: Phaser.GameObjects.Text;
@@ -9,18 +11,18 @@ export class Hud {
 
   constructor(scene: Phaser.Scene) {
     const panel = scene.add
-      .rectangle(24, 22, 1232, 76, COLORS.ink, 0.82)
+      .rectangle(24, 22, 1232, 76, COLORS.ink, 0.9)
       .setOrigin(0)
-      .setStrokeStyle(1, COLORS.gold, 0.22)
+      .setStrokeStyle(2, COLORS.sunGold, 0.72)
       .setScrollFactor(0)
       .setDepth(100);
 
     scene.add
-      .text(48, 34, 'EMBERFALL', {
-        fontFamily: '"Chakra Petch", sans-serif',
-        fontSize: '25px',
+      .text(48, 34, 'FORMOSA QUEST', {
+        fontFamily: '"Trebuchet MS", sans-serif',
+        fontSize: '24px',
         fontStyle: 'bold',
-        color: '#ffd36a',
+        color: '#ffc117',
         letterSpacing: 2,
       })
       .setScrollFactor(0)
@@ -30,25 +32,25 @@ export class Hud {
       .text(48, 67, '', {
         fontFamily: 'Arial, sans-serif',
         fontSize: '19px',
-        color: '#ff6b57',
+        color: '#8bc642',
       })
       .setScrollFactor(0)
       .setDepth(101);
 
     this.objective = scene.add
       .text(370, 40, '', {
-        fontFamily: '"Chakra Petch", sans-serif',
+        fontFamily: '"Trebuchet MS", sans-serif',
         fontSize: '18px',
-        color: '#fff8e8',
+        color: '#f7f4e8',
       })
       .setScrollFactor(0)
       .setDepth(101);
 
     this.hint = scene.add
-      .text(370, 69, 'MOVE  A/D or arrows    JUMP  W/Space/↑    STRIKE  J/X    RESTART  R', {
-        fontFamily: 'Inter, sans-serif',
+      .text(370, 69, CONTROL_HINT, {
+        fontFamily: 'Arial, sans-serif',
         fontSize: '13px',
-        color: '#aab4ce',
+        color: '#bdebe5',
       })
       .setScrollFactor(0)
       .setDepth(101);
@@ -63,68 +65,70 @@ export class Hud {
     this.hearts.setText(`${full}${empty}`.trim());
   }
 
-  setEnemiesRemaining(count: number): void {
-    this.objective.setText(
-      count > 0
-        ? `Clear the road  •  ${count} sentinel${count === 1 ? '' : 's'} remaining`
-        : 'The seal is broken  •  Reach the ember gate →',
-    );
-    this.objective.setColor(count > 0 ? '#fff8e8' : '#68e0c1');
+  setGhostsRemaining(count: number): void {
+    this.objective
+      .setText(`Clear the city  •  ${count} spirit${count === 1 ? '' : 's'} remaining`)
+      .setColor('#f7f4e8');
+  }
+
+  setBossHealth(health: number, maxHealth: number): void {
+    const marks = '◆ '.repeat(Math.max(0, health)) + '◇ '.repeat(Math.max(0, maxHealth - health));
+    this.objective.setText(`MINI-BOSS  •  FORMOSAN BLACK BEAR  ${marks.trim()}`).setColor('#ffc117');
+  }
+
+  setExitOpen(): void {
+    this.objective.setText('The city is safe  •  Reach the green transit gate →').setColor('#8bc642');
   }
 
   flashMessage(message: string): void {
-    this.hint.setText(message).setColor('#ffd36a');
-    this.hint.scene.time.delayedCall(1300, () => {
-      if (this.hint.active) {
-        this.hint
-          .setText('MOVE  A/D or arrows    JUMP  W/Space/↑    STRIKE  J/X    RESTART  R')
-          .setColor('#aab4ce');
-      }
+    this.hint.setText(message).setColor('#ffc117');
+    this.hint.scene.time.delayedCall(1400, () => {
+      if (this.hint.active) this.hint.setText(CONTROL_HINT).setColor('#bdebe5');
     });
   }
 
   showEndState(scene: Phaser.Scene, won: boolean, elapsedSeconds: number): void {
     if (this.overlay) return;
 
-    const shade = scene.add.rectangle(640, 360, 1280, 720, 0x080a16, 0.78);
+    const shade = scene.add.rectangle(640, 360, 1280, 720, COLORS.deepTeal, 0.76);
     const card = scene.add
-      .rectangle(640, 360, 520, 270, COLORS.ink, 0.98)
-      .setStrokeStyle(2, won ? COLORS.mint : COLORS.ember, 0.85);
+      .rectangle(640, 360, 540, 270, COLORS.ink, 0.98)
+      .setStrokeStyle(3, won ? COLORS.leafLight : COLORS.sunGold, 0.95);
     const kicker = scene.add
-      .text(640, 276, won ? 'ROAD CLEARED' : 'THE FLAME FADES', {
-        fontFamily: '"Chakra Petch", sans-serif',
+      .text(640, 276, won ? 'CITY ROUTE CLEARED' : 'THE QUEST CONTINUES', {
+        fontFamily: '"Trebuchet MS", sans-serif',
         fontSize: '17px',
         fontStyle: 'bold',
-        color: won ? '#68e0c1' : '#ff795a',
+        color: won ? '#8bc642' : '#ffc117',
         letterSpacing: 3,
       })
       .setOrigin(0.5);
     const title = scene.add
-      .text(640, 329, won ? 'EMBER RESTORED' : 'RISE AGAIN', {
-        fontFamily: '"Chakra Petch", sans-serif',
+      .text(640, 329, won ? 'FORMOSA RESTORED' : 'TRY AGAIN', {
+        fontFamily: '"Trebuchet MS", sans-serif',
         fontSize: '38px',
         fontStyle: 'bold',
-        color: '#fff8e8',
+        color: '#f7f4e8',
       })
       .setOrigin(0.5);
     const detail = scene.add
       .text(
         640,
         384,
-        won ? `Run completed in ${elapsedSeconds.toFixed(1)} seconds` : 'The sentinels still guard the pass.',
+        won ? `Quest completed in ${elapsedSeconds.toFixed(1)} seconds` : 'The city spirits are waiting for another run.',
         {
-          fontFamily: 'Inter, sans-serif',
+          fontFamily: 'Arial, sans-serif',
           fontSize: '16px',
-          color: '#aab4ce',
+          color: '#bdebe5',
         },
       )
       .setOrigin(0.5);
     const prompt = scene.add
       .text(640, 442, 'PRESS R TO RESTART', {
-        fontFamily: '"Chakra Petch", sans-serif',
+        fontFamily: '"Trebuchet MS", sans-serif',
         fontSize: '18px',
         fontStyle: 'bold',
-        color: '#ffd36a',
+        color: '#ffc117',
       })
       .setOrigin(0.5);
 

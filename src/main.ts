@@ -9,8 +9,9 @@ const config: Phaser.Types.Core.GameConfig = {
   parent: 'game',
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
-  backgroundColor: '#151934',
-  pixelArt: true,
+  backgroundColor: '#11b5c9',
+  pixelArt: false,
+  antialias: true,
   roundPixels: true,
   physics: {
     default: 'arcade',
@@ -26,5 +27,13 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [BootScene, GameScene],
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);
+
+declare global {
+  interface Window {
+    __FORMOSA_GAME__?: Phaser.Game;
+  }
+}
+
+if (import.meta.env.DEV) window.__FORMOSA_GAME__ = game;
 

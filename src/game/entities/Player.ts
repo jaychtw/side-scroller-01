@@ -32,13 +32,15 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
+    this.setDisplaySize(72, 72);
+    this.body.setSize(96, 178);
+    this.body.setOffset(80, 66);
     this.setDepth(14);
     this.setCollideWorldBounds(true);
-    this.setSize(24, 40).setOffset(6, 6);
     this.setMaxVelocity(PLAYER.moveSpeed, 900);
 
     const keyboard = scene.input.keyboard;
-    if (!keyboard) throw new Error('Keyboard input is required to play Emberfall.');
+    if (!keyboard) throw new Error('Keyboard input is required to play Formosa Quest.');
 
     this.cursors = keyboard.createCursorKeys();
     this.leftKey = keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -139,9 +141,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
   private attack(time: number): void {
     this.attackReadyAt = time + PLAYER.attackCooldownMs;
-    const attackWidth = 74;
-    const attackHeight = 48;
-    const centerX = this.x + this.facing * 42;
+    const attackWidth = 86;
+    const attackHeight = 54;
+    const centerX = this.x + this.facing * 48;
     const area = new Phaser.Geom.Rectangle(
       centerX - attackWidth / 2,
       this.y - attackHeight / 2,

@@ -13,14 +13,16 @@ export const PLAYER = {
 } as const;
 
 export const COLORS = {
-  ink: 0x11162d,
-  night: 0x171b3d,
-  dusk: 0x5d4288,
-  ember: 0xff6b45,
-  gold: 0xffd36a,
-  mint: 0x68e0c1,
-  stone: 0x303a59,
-  stoneTop: 0x68738f,
-  white: 0xfff8e8,
+  ink: 0x173533,
+  deepTeal: 0x075b5b,
+  teal: 0x079a8c,
+  sky: 0x11b5c9,
+  leaf: 0x41a448,
+  leafLight: 0x8bc642,
+  sunGold: 0xffc117,
+  cream: 0xf7f4e8,
+  glass: 0xbdebe5,
+  concrete: 0xd8d8c8,
+  asphalt: 0x3f5552,
 } as const;
 

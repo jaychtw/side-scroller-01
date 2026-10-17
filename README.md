@@ -1,6 +1,8 @@
-# Emberfall
+# Formosa Quest
 
-Emberfall is a small 2D side-scrolling action-game prototype. It is deliberately a complete, narrow “vertical slice”: traverse one level, defeat five sentinels, survive hazards, and unlock the exit gate.
+Formosa Quest is a bright 2D side-scrolling action game set along a nature-filled Taiwanese city greenway. Guide a tiny eco-explorer through construction hazards, clear five wandering city spirits, defeat a three-hit Formosan black bear mini-boss, and reach the transit gate.
+
+Play the current release at [jaychtw.github.io/side-scroller-01](https://jaychtw.github.io/side-scroller-01/).
 
 ## Play locally
 
@@ -20,7 +22,7 @@ Open the local URL printed by Vite. In a cloud environment, bind the server with
 - Strike: `J` or `X`
 - Restart: `R`
 
-The jump includes coyote time, input buffering, and variable height, which are three small details that make an action platformer feel much more responsive.
+The jump includes coyote time, input buffering, and variable height for responsive platforming.
 
 ## Useful commands
 
@@ -32,15 +34,13 @@ npm run build      # create a production build in dist/
 npm run preview    # serve the production build
 ```
 
-## Where to go next
+## Project structure
 
-Start by playing and tuning the movement values in `src/game/config.ts`. Once movement and combat feel right, a sensible order is:
+- `src/game/scenes/GameScene.ts` contains the level, city backdrop, and encounter flow.
+- `src/game/entities/Player.ts` controls movement, jumping, combat, and health.
+- `src/game/entities/Enemy.ts` supports both floating spirits and the black-bear boss.
+- `src/game/config.ts` contains movement tuning and the Formosa nature palette.
+- `public/assets/characters/` contains the explorer, spirit, and bear artwork.
 
-1. Replace generated shapes with a small sprite sheet and animations.
-2. Add sound effects and music.
-3. Move level layout into Tiled or another map editor.
-4. Add a second enemy that changes how the player moves.
-5. Add one short boss encounter.
-
-Avoid adding inventory, skill trees, procedural generation, or a large story until the basic loop is fun. A polished five-minute level teaches more than twenty unfinished systems.
+Future additions should build outward from this playable route: animation, sound, a map-authored city level, distinct spirit behaviors, and a full boss encounter.
 

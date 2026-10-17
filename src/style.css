@@ -1,6 +1,6 @@
 :root {
-  color: #f8f4eb;
-  background: #090b18;
+  color: #173533;
+  background: #dff6e8;
   font-family: Inter, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,8 +22,8 @@ main {
 
 body {
   background:
-    radial-gradient(circle at 50% 0%, rgba(75, 63, 145, 0.32), transparent 46%),
-    linear-gradient(180deg, #10142b 0%, #070812 100%);
+    radial-gradient(circle at 78% 8%, rgba(255, 193, 23, 0.4), transparent 28%),
+    linear-gradient(180deg, #bdebe5 0%, #f7f4e8 100%);
 }
 
 main {
@@ -35,13 +35,13 @@ main {
 .game-shell {
   position: relative;
   width: min(100%, 1280px);
-  border: 1px solid rgba(255, 213, 128, 0.18);
+  border: 1px solid rgba(7, 154, 140, 0.3);
   border-radius: 14px;
   overflow: hidden;
-  background: #11162f;
+  background: #11b5c9;
   box-shadow:
-    0 28px 80px rgba(0, 0, 0, 0.55),
-    0 0 50px rgba(255, 114, 71, 0.08);
+    0 28px 80px rgba(23, 53, 51, 0.25),
+    0 0 50px rgba(65, 164, 72, 0.16);
 }
 
 #game,
@@ -55,7 +55,7 @@ main {
   inset: 50% auto auto 50%;
   z-index: -1;
   margin: 0;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(23, 53, 51, 0.72);
   transform: translate(-50%, -50%);
 }
 
